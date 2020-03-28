@@ -60,7 +60,7 @@ private:
     void FromDialogAccepted();
     void ToDialogAccepted();
     bool VolumesOnline(const QString from_dir, const QString to_dir);
-    void SetStorageSpaceData(const QString &dir);
+    bool SetStorageSpaceData(const QString &dir);
 };
 
 #endif // FILE_BROWSER_H

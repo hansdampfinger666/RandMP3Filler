@@ -54,8 +54,9 @@ FileBrowser::SetToDir(const QString &to_dir)
 
     if(VolumeIsOnline(to_dir))
     {
-        SetStorageSpaceData(to_dir_);
         to_dir_online_ = true;
+        if(SetStorageSpaceData(to_dir_))
+            emit ToDirSpaceDataChanged();
     }
     else
         to_dir_online_ = false;
@@ -106,17 +107,29 @@ FileBrowser::GetToDirTotalSpaceLabel()
 }
 
 
-void
+bool
 FileBrowser::SetStorageSpaceData(const QString &dir)
 {
     QStorageInfo storage_info;
+    bool needs_update = false;
 
     storage_info.setPath(dir);
-    to_dir_free_space_bytes_ = storage_info.bytesAvailable();
-    to_dir_total_space_bytes_ = storage_info.bytesTotal();
-    to_dir_ratio_used_ = (100 / to_dir_total_space_bytes_) *
-            (to_dir_total_space_bytes_ - to_dir_free_space_bytes_);
-    emit ToDirSpaceDataChanged();
+
+    float to_dir_free_space_bytes = storage_info.bytesAvailable();
+    float to_dir_total_space_bytes = storage_info.bytesTotal();
+    int to_dir_ratio_used = (100 / to_dir_total_space_bytes) *
+            (to_dir_total_space_bytes - to_dir_free_space_bytes);
+
+    if(to_dir_free_space_bytes_ != to_dir_free_space_bytes ||
+            to_dir_total_space_bytes_ != to_dir_total_space_bytes ||
+            to_dir_ratio_used_ != to_dir_ratio_used)
+        needs_update = true;
+
+    to_dir_free_space_bytes_ = to_dir_free_space_bytes;
+    to_dir_total_space_bytes_ = to_dir_total_space_bytes;
+    to_dir_ratio_used_ = to_dir_ratio_used;
+
+    return needs_update;
 }
 
 

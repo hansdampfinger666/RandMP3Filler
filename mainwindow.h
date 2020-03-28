@@ -3,10 +3,12 @@
 
 #include <QMainWindow>
 #include <QFileDialog>
+#include <QLineEdit>
 
 #include <config_loader.h>
 #include <file_browser.h>
 #include <file_handler.h>
+#include <clickable_label.h>
 
 #include <iostream>
 
@@ -26,8 +28,9 @@ public:
 private slots:
     void OnBrowseFromDirButtonClicked();
     void OnBrowseToDirButtonClicked();
-    void OnTransferDialChanged();
-    void OnTransferSizeTextBoxChanged();
+    void OnToDirTransferDialChanged();
+    void OnToDirTransferSizeTextDoubleClick();
+//    void OnToDirTransferSizeTextBoxChanged();
     void OnMakeTransferListButtonClicked();
     void OnSendFilesButtonClicked();
 
@@ -43,6 +46,9 @@ private:
     FileBrowser *filebrowser_;
     ConfigLoader *configloader_;
     FileHandler *filehandler_;
+
+    QWidget *testwidget_;
+    ClickableLabel *clickablelabel_;
 
     void SetActionButtonsDisabled();
 };

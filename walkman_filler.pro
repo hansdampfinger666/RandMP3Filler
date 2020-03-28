@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     benchmarker.cpp \
+    clickable_label.cpp \
     config_loader.cpp \
     file_browser.cpp \
     file_handler.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
 
 HEADERS += \
     benchmarker.h \
+    clickable_label.h \
     config_loader.h \
     file_browser.h \
     file_handler.h \
